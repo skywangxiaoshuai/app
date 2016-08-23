@@ -1,16 +1,15 @@
 class Micropost < ApplicationRecord
   belongs_to :user
-  default_scope  ->  {  order(created_at:  :desc)  }
+  default_scope  -> { order(created_at:  :desc) }
   mount_uploader :picture, PictureUploader
-  validates  :user_id,  presence:  true
-  validates  :content, presence:  true,  length:  {  maximum:  1400  }
-  validate  :picture_size  #自定义的验证上传图片大小的方法
+  validates  :user_id, presence:  true
+  validates  :content, presence:  true, length:  { maximum:  1400 }
+  validate :picture_size # 自定义的验证上传图片大小的方法
+
   private
 
-    #验证上传的图像大小
-    def  picture_size
-        if  picture.size  >  5.megabytes
-            errors.add(:picture,  "图片大小不能超过5MB！")
-        end
-    end
+  # 验证上传的图像大小
+  def picture_size
+    errors.add(:picture, '图片大小不能超过5MB！') if picture.size > 5.megabytes
+  end
 end
