@@ -15,7 +15,7 @@ class MicropostsController < ApplicationController
 
   def destroy
     @micropost.destroy
-    flash[:success] = '微博删除成功！'
+    flash.now[:success] = '微博删除成功！'
     redirect_to request.referrer || root_url
   end
 
